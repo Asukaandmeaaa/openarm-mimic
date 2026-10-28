@@ -1,0 +1,41 @@
+rotations.py is copied unchanged from ZouYan93/trackerlab-supermimic,
+commit 606aae160b88 (full commit in research/supermimic_2026-10-23/metadata/manifest.json).
+../kinematics.py adapts that repository's kinematics.py to fixed-base OpenArm:
+adds a world root, discovers OpenArm joints, fixes gripper kinematics at zero,
+removes floating-root observations, allows configurable torch dtype.
+Original implementation credits zita-ch/supermimic_vibed.
+Both MIT license notices are retained beside this file.
+
+../supermimic/core.py and ../supermimic/learning.py adapt the same TrackerLab
+networks.py, buffer.py, mdp.py and scripts/train.py architecture and update loops:
+autoregressive residual world model, episode-safe replay, reference-conditioned
+policy, analytic BPTT policy objective and TD(lambda) critic targets.
+../supermimic/env.py and ../../scripts/supermimic_openarm.py implement the
+OpenArm/PhysX collection and checkpoint/evaluation integration. Changes include
+fixed-base 36D state, 14D reference-relative targets, named joint mapping,
+OpenArm FK rewards, no G1 root/leg rewards, no original domain-randomization
+context, and a small-memory preset. This is an adaptation of an independent
+reproduction, not official author code or a claim of identical paper results.
+
+Provenance clarification (2026-10-23):
+The local trainer is a rewritten OpenArm adaptation of the upstream architecture,
+not an unchanged upstream training entry point. The following additions are local
+engineering experiments, not attributed to TrackerLab or the paper authors:
+physical Monte Carlo critic calibration, explicit critic phase input, real-replay
+critic TD(lambda), EMA target critic, actor critic-gradient budgeting, held-out
+calibration gates, and automatic physical-regression stopping. The proposed
+startup-stratified data/scaled error inputs/upper-bounded cost head were diagnosis
+recommendations and have not been implemented as of this note.
+Upstream scripts/train.py already provides a no-critic ablation and applies both
+norm clipping and element-wise actor gradient clipping. These implementation
+choices are not all preserved in the local adaptation. Local experiments do not
+establish parity with the original upstream training setup.
+
+Further source audit: upstream mdp.py:208 critic_features already contains
+reference-minus-actual joint errors and body tracking errors (alongside invariant
+state/context), then scripts/train.py appends goals. The first local critic used
+raw full joint state plus goals, omitting those explicit error features. Restoring
+reference-relative critic features would reuse upstream design, not invent a new
+algorithm. The proposed physically chosen normalization floors and bounded-cost
+head remain separate local proposals. Do not attribute local regression to the
+upstream algorithm without checking these migration differences.

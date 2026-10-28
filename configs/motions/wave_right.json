@@ -1,0 +1,43 @@
+{
+  "source": "data/processed/141_16_no_reference_frame.bvh",
+  "output": "data/processed/wave_right_v1.npz",
+  "control_hz": 50,
+  "motion_duration_s": 5.0,
+  "transition_s": 1.5,
+  "standby_left": [
+    0.0,
+    -0.12,
+    0.0,
+    0.35,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "standby_right": [
+    0.0,
+    0.12,
+    0.0,
+    0.35,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "gripper_left": 0.0,
+  "gripper_right": 0.0,
+  "joint_margin_rad": 0.02,
+  "ik": {
+    "wrist_position_weight": 1.0,
+    "elbow_position_weight": 0.6,
+    "orientation_weight_m_per_rad": 0.025,
+    "continuity_weight": 0.025,
+    "posture_weight": 0.001,
+    "max_joint_step_rad": 0.06
+  },
+  "review_limits": {
+    "joint_speed_rad_s": 1.5,
+    "joint_acceleration_rad_s2": 8.0,
+    "wrist_target_rmse_m": 0.04,
+    "orientation_target_rmse_deg": 35.0
+  },
+  "note": "Design timing and initial engineering review limits, not measured hardware limits. Fixed torso, original right-arm gesture, left standby; grippers commanded closed."
+}

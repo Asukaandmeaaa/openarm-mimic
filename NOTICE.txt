@@ -1,0 +1,31 @@
+OpenArm Mimic source release
+
+OpenArm task adaptation and reference-generation code is maintained in this
+repository. No single license replaces the component licenses below.
+
+TrackerLab SuperMimic: https://github.com/ZouYan93/trackerlab-supermimic
+Pinned base: 606aae160b88635c97eefb05a3e4e4591afd7632.
+MIT notices and upstream attribution are retained in
+integrations/trackerlab_openarm/LICENSE, NOTICE.md and
+src/trackerlab_supermimic/LICENSE.upstream within that integration.
+The adapter and training algorithm are an unofficial reproduction.
+
+OpenArm model and joint resolver: https://github.com/enactic/openarm_mujoco
+Source revision: a8c979629f2591ad035d99d338ce114969e6cddc, with local
+position-servo/model changes retained in the supplied MJCF.
+Copyright Enactic, Inc.; Apache-2.0, see assets/openarm_mujoco/LICENSE.
+Derived PhysX assets are generated locally by prepare_openarm_isaac.py and
+check_openarm_import.py (fixed root, baked mirrored meshes, mimic constraints).
+
+Differentiable FK and rotation utilities retain attribution and MIT notices in
+src/openarm_mimic/third_party/.
+
+BVH/FK utility: vendor/lafan_vendor, retained unchanged from the GMR checkout
+f7bfaead0d0b896e6b74a64bc6948ca8b09d420b, utils/lafan_vendor.
+Its CC BY-NC-ND 4.0 license is retained as vendor/lafan_vendor/license.txt.
+
+Motion sources are obtained separately: CMU Graphics Lab Motion Capture
+Database (https://mocap.cs.cmu.edu/) and the pinned BVH conversion at
+https://github.com/una-dinosauria/cmu-mocap.
+Dataset and utility terms are independent of the MIT/Apache code licenses.
+IsaacLab and Isaac Sim are installed separately under their own terms.

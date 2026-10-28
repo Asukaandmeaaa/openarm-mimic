@@ -1,0 +1,21 @@
+BeyondMimic 现有 MotionLoader 数据接口
+====================================
+来源：vendor/roboparty_train/robolab/robolab/tasks/manager_based/beyondmimic/mdp/commands.py
+
+NPZ 必需字段：
+fps                 标量帧率
+joint_pos           [T, D] 关节位置
+joint_vel           [T, D] 关节速度
+body_pos_w          [T, B, 3] 世界系连杆位置
+body_quat_w         [T, B, 4] 世界系连杆姿态，Isaac Lab wxyz 约定
+body_lin_vel_w      [T, B, 3] 世界系线速度
+body_ang_vel_w      [T, B, 3] 世界系角速度
+
+D、B 必须和最终 Isaac Lab articulation 的关节/连杆顺序一致；不能假定
+MJCF 顺序、策略顺序、Isaac Lab 顺序相同。导出时需附带名称映射和单位信息。
+现有 loader 不从文件读取名称映射，适配层应显式核对。
+策略只控制 14 轴不代表 joint_pos 只能有 14 列；夹爪关节如何存储由任务资产决定。
+单位：米、弧度、秒。速度需在统一时间轴上计算，旋转需考虑四元数符号连续性。
+人体 BVH 不能直接作为训练 NPZ；先重定向，再通过机器人正运动学生成连杆轨迹。
+RPO yundong1.npz 只用于现有加载器检查，不是 OpenArm 训练数据。
+初始 BVH 标注约 120 Hz、300 帧，尚未可视化或与原始 AMC 时间轴交叉确认。

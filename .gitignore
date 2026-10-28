@@ -1,0 +1,33 @@
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+MUJOCO_LOG.TXT
+
+# Local environments and generated experiment artifacts
+.venv/
+runs/
+reports/
+logs/
+research/
+docs/
+provenance/
+baselines/
+assets/generated/
+*_tmp/
+data/raw/
+data/processed/
+*.pt
+*.pth
+*.npz
+*.npy
+*.mp4
+*.gif
+*.png
+*.jpg
+
+# Local machine links and editor state
+dependencies/
+.idea/
+.vscode/
+reports/*.log
